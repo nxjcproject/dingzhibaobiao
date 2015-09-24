@@ -1,6 +1,7 @@
 ﻿var ReportHtml = "";
 $(function () {
     SetDateboxValue();
+    LoadTreeGrid({ "rows": [], "total": 0 });
 });
 // datetime datebox
 function SetDateboxValue() {
@@ -17,7 +18,7 @@ function SetDateboxValue() {
     $("#datetime").datebox("setValue", m_StrDate);
 }
 function onOrganisationTreeClick(node) {
-    $('#TextBox_CompanyName').textbox('setText', node.text);
+    $('#TextBox_OrganizationName').textbox('setText', node.text);
     $('#organizationId').val(node.OrganizationId);
 }
 function QueryReportFun() {
@@ -31,25 +32,98 @@ function QueryReportFun() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (msg) {
-                var m_Data = msg.d;
-                $.each(m_Data, function (i, item) {
-                    var value = Number(item.Value)
-                    var element = $(document.getElementById(item.ID));
-                    //if (element.attr("tagName") == "span")
-                    //element.html(value.toFixed(0));
-                    element.html(value);
-                    //else
-                    //element.val(value.toFixed(0));
-                    //$('#zc_nxjc_byc_byf_clinker01_limestoneMine_ElectricityQuantity').html(m_Data.Value);
-                });
-
+                var m_MsgData = jQuery.parseJSON(msg.d);
+                //$.each(m_Data, function (i, item) {
+                //    var value = Number(item.Value)
+                //    var element = $(document.getElementById(item.ID));
+                //    //if (element.attr("tagName") == "span")
+                //    //element.html(value.toFixed(0));
+                //    element.html(value);
+                //    //else
+                //    //element.val(value.toFixed(0));
+                //    //$('#zc_nxjc_byc_byf_clinker01_limestoneMine_ElectricityQuantity').html(m_Data.Value);
+                //});
+                $('#TreeGrid_ReportTable').treegrid("loadData", m_MsgData);
+                $('#TreeGrid_ReportTable').treegrid("collapseAll");
             }
         });
     }
     else {
-        alert("您没有选择公司或者未选择时间!");
+        alert("您没有选择分厂或者未选择时间!");
     }
 
+}
+function LoadTreeGrid(myData) {
+    try {
+        $('#TreeGrid_ReportTable').treegrid({
+            data: myData,
+            dataType: "json",
+            //loadMsg: '',   //设置本身的提示消息为空 则就不会提示了的。这个设置很关键的
+            idField: 'id',
+            treeField: 'Name',
+            rownumbers: true,
+            singleSelect: true,
+            frozenColumns: [[{
+                width: '220',
+                title: '区域及工序',
+                field: 'Name'
+            }
+            ]],
+            columns: [[{
+                width: '100',
+                title: '变量ID',
+                field: 'VariableId'
+            },{
+                width: '100',
+                title: '组织机构层次码',
+                field: 'OrganizationLevelCode',
+                hidden: true
+            }, {
+                width: '100',
+                title: '层次码',
+                field: 'LevelCode',
+                hidden: true
+            }, {
+                width: '120',
+                title: '用电量',
+                field: 'DayElectricityQuantity'
+            }, {
+                width: '120',
+                title: '月累计用电量',
+                field: 'TotalElectricityQuantity'
+            }, {
+                width: '100',
+                title: '分母',
+                field: 'Denominator',
+                hidden: true
+            }, {
+                width: '100',
+                title: '名称',
+                field: 'MaterialName'
+            }, {
+                width: '120',
+                title: '生产量',
+                field: 'DayOutput'
+            }, {
+                width: '120',
+                title: '月累计生产量',
+                field: 'TotalOutput'
+            }, {
+                width: '120',
+                title: '电耗',
+                field: 'DayElectricityConsumption'
+            }, {
+                width: '120',
+                title: '月累计电耗',
+                field: 'TotalElectricityConsumption'
+            }]],
+            toolbar: '#toolbar_ReportTable'
+        });
+
+    }
+    catch (e) {
+
+    }
 }
 function RefreshFun() {
     QueryReportFun();
