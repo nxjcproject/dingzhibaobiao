@@ -35,7 +35,7 @@ namespace CustomStatisticalReport.Web.UI_CustomStatisticalReport
                 //ExportFile("xls", "导出报表1.xls");
                 string m_ExportTable = m_Parameter1.Replace("&lt;", "<");
                 m_ExportTable = m_ExportTable.Replace("&gt;", ">");
-                DayConsumptionReportService.ExportExcelFile("xls", "中材甘肃水泥能耗日报.xls", m_ExportTable);
+                DayConsumptionReportService.ExportExcelFile("xls", m_Parameter2 + "能耗日报.xls", m_ExportTable);
             }
             if (!IsPostBack)
             {

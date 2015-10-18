@@ -1,4 +1,5 @@
-﻿var ReportHtml = "";
+﻿var SelectOrganizationName = "";
+var SelectDatetime = "";
 $(function () {
     SetDateboxValue();
     LoadTreeGrid({ "rows": [], "total": 0 });
@@ -23,12 +24,13 @@ function onOrganisationTreeClick(node) {
 }
 function QueryReportFun() {
     var m_OrganizationId = $('#organizationId').val();
-    var m_Datetime = $("#datetime").datebox("getValue");
-    if (m_OrganizationId != undefined && m_OrganizationId != "" && m_Datetime != undefined && m_Datetime != "") {
+    SelectOrganizationName = $('#TextBox_OrganizationName').textbox('getText');
+    SelectDatetime = $("#datetime").datebox("getValue");
+    if (m_OrganizationId != undefined && m_OrganizationId != "" && SelectDatetime != undefined && SelectDatetime != "") {
         $.ajax({
             type: "POST",
             url: "DayConsumptionReport.aspx/GetReportData",
-            data: '{organizationId: "' + m_OrganizationId + '", datetime: "' + m_Datetime + '"}',
+            data: '{organizationId: "' + m_OrganizationId + '", datetime: "' + SelectDatetime + '"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (msg) {
@@ -72,7 +74,8 @@ function LoadTreeGrid(myData) {
             columns: [[{
                 width: '100',
                 title: '变量ID',
-                field: 'VariableId'
+                field: 'VariableId',
+                hidden: true
             },{
                 width: '100',
                 title: '组织机构层次码',
@@ -130,8 +133,8 @@ function RefreshFun() {
 }
 function ExportFileFun() {
     var m_FunctionName = "ExcelStream";
-    var m_Parameter1 = $('#ReportTable').html();
-    var m_Parameter2 = "Parameter2";
+    var m_Parameter1 = GetTreeTableHtml("TreeGrid_ReportTable", "能耗日报", "Name", SelectOrganizationName, SelectDatetime);
+    var m_Parameter2 = SelectOrganizationName;
 
     var m_ReplaceAlllt = new RegExp("<", "g");
     var m_ReplaceAllgt = new RegExp(">", "g");
@@ -166,6 +169,6 @@ function ExportFileFun() {
     form.remove();
 }
 function PrintFileFun() {
-    var m_ReportTableHtml = $('#ReportTable').html();
+    var m_ReportTableHtml = GetTreeTableHtml("TreeGrid_ReportTable", "能耗日报", "Name", SelectOrganizationName, SelectDatetime);
     PrintHtml(m_ReportTableHtml);
 }
