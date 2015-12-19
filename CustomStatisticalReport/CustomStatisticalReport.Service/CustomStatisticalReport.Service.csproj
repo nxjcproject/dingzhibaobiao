@@ -64,8 +64,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomDayConsumptionReport\BalanceStatisticsService.cs" />
+    <Compile Include="CustomDayConsumptionReport\CementStatisticsService.cs" />
+    <Compile Include="CustomDayConsumptionReport\ClinkerStatisticsService.cs" />
     <Compile Include="CustomDayConsumptionReport\DayConsumptionReportService.cs" />
     <Compile Include="CustomDayConsumptionReport\Model_DataItem.cs" />
+    <Compile Include="CustomDayConsumptionReport\QueryBalanceStatisticsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

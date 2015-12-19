@@ -69,6 +69,7 @@
             </div>
             <table id="TreeGrid_ReportTable" data-options="fit:true,border:false">
             </table>
+
         </div>
     </div>
     <form id="formMain" runat="server">
