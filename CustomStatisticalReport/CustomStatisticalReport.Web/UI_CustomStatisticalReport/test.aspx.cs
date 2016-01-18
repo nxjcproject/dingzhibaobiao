@@ -1,4 +1,5 @@
 ﻿using CustomStatisticalReport.Service.CustomDayConsumptionReport;
+using CustomStatisticalReport.Service.ReportMonthly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,13 @@ namespace CustomStatisticalReport.Web.UI_CustomStatisticalReport
             //int n=t2.CompareTo(t1);
 
 
-            string[] dateArray = "2015-12".Split('-');
-            DateTime t_time = new DateTime(Int16.Parse(dateArray[0]), Int16.Parse(dateArray[1]), 1);
-            DateTime startDate = t_time.AddDays(-1);
-            DateTime endDate = t_time.AddMonths(1);
-            int i;
+            //string[] dateArray = "2015-12".Split('-');
+            //DateTime t_time = new DateTime(Int16.Parse(dateArray[0]), Int16.Parse(dateArray[1]), 1);
+            //DateTime startDate = t_time.AddDays(-1);
+            //DateTime endDate = t_time.AddMonths(1);
+            //int i;
+
+            ReportMonthly_SemifinishedService.GetReportData("zc_nxjc_byc", "2015-08");
         }
     }
 }
