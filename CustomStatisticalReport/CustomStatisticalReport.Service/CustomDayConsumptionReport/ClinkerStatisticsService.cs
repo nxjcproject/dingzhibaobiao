@@ -43,7 +43,8 @@ namespace CustomStatisticalReport.Service.CustomDayConsumptionReport
                 frameTable.Columns.Add(ECcolumn);
             }
             //基础数据
-//            string myDataSql = @"SELECT M.OrganizationID,M.VariableId,M.ElectricityQuantity,N.Material,
+            #region
+            //            string myDataSql = @"SELECT M.OrganizationID,M.VariableId,M.ElectricityQuantity,N.Material,
 //	                                    (case N.Material when 0 then 0  when  Null then Null else M.ElectricityQuantity/N.Material end) as ElectricityConsumption
 //                                    FROM
 //	                                    (select C.OrganizationID,A.VariableId,SUM(C.TotalPeakValleyFlatB) as ElectricityQuantity
@@ -94,7 +95,8 @@ namespace CustomStatisticalReport.Service.CustomDayConsumptionReport
 //	                                    L.OrganizationID=N.OrganizationID
 //	                                    AND L.VariableId=N.VariableId
 //                                    WHERE 
-//	                                    N.Displayed='true'";
+            //	                                    N.Displayed='true'";
+            #endregion
             string myDataSql = @"SELECT M.OrganizationID,M.VariableId,M.ElectricityQuantity,N.Material,
 	                                    (case N.Material when 0 then 0  when  Null then Null else M.ElectricityQuantity/N.Material end) as ElectricityConsumption
                                     FROM
@@ -199,6 +201,25 @@ namespace CustomStatisticalReport.Service.CustomDayConsumptionReport
             }
             myBuilder.Remove(myBuilder.Length - 4, 4);
             DataTable table = _dataFactory.Query(string.Format(mySql,myBuilder.ToString()));
+
+            //过滤掉没有熟料产线的公司
+            List<int> indexList = new List<int>();
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                string levelcode = table.Rows[i]["LevelCode"].ToString().Trim();
+                DataRow[] rows = table.Select("LevelCode like '" + levelcode + "%' and Type='熟料'");
+                if (rows.Count() == 0)
+                {
+                    indexList.Add(i);
+                }
+            }
+            foreach (int index in indexList)
+            {
+                table.Rows.RemoveAt(index);
+            }
+            //
+
+
             StringBuilder htmlBuilder = new StringBuilder();
             string m_th = "<th data-options=\"field:'{0}',width:{1},align:'center'\" colspan=\"{2}\">{3}</th>";
             htmlBuilder.Append("<table id=\"gridMain_ReportTemplate\" class=\"easyui-datagrid\" data-options=\"toolbar:'#toolbar_ReportTemplate',rownumbers:true,singleSelect:true,fit:true\">");

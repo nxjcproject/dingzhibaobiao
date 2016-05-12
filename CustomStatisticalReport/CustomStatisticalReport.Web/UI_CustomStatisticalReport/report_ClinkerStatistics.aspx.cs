@@ -19,7 +19,7 @@ namespace CustomStatisticalReport.Web.UI_CustomStatisticalReport
             {
 #if DEBUG
                 ////////////////////调试用,自定义的数据授权
-                List<string> m_DataValidIdItems = new List<string>() { "zc_nxjc_byc", "zc_nxjc_qtx" };
+                List<string> m_DataValidIdItems = new List<string>() { "zc_nxjc_byc", "zc_nxjc_qtx", "zc_nxjc_tsc_tsf", "zc_nxjc_szsc", "zc_nxjc_klqc", "zc_nxjc_ychc" };
                 AddDataValidIdGroup("ProductionOrganization", m_DataValidIdItems);
 #elif RELEASE
 #endif
