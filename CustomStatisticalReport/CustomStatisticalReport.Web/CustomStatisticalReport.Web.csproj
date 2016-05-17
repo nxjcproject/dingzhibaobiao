@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +42,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.0.0.155, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="AutoSetParameters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\组件\StandardCalculation\AutoSetParameters\bin\Release\AutoSetParameters.dll</HintPath>
@@ -50,6 +55,10 @@
       <HintPath>..\..\..\组件\EasyUIJsonParser\EasyUIJsonParser\bin\Debug\EasyUIJsonParser.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SqlServerDataAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\SqlServerDataAdapter.dll</HintPath>
+    </Reference>
     <Reference Include="Standard_GB16780-2012, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\组件\StandardCalculation\AutoSetParameters\bin\Release\Standard_GB16780-2012.dll</HintPath>
@@ -1600,25 +1609,43 @@
     <Content Include="UI_CustomStatisticalReport\DayConsumptionReport.aspx" />
     <Content Include="UI_CustomStatisticalReport\js\page\DayConsumptionReport.js" />
     <Content Include="UI_CustomStatisticalReport\js\page\FormulaParse.js" />
+    <Content Include="UI_CustomStatisticalReport\js\page\ReportDaily_Production.js" />
     <Content Include="UI_CustomStatisticalReport\js\page\ReportMonthly.js" />
     <Content Include="UI_CustomStatisticalReport\js\page\report_BalanceStatistics.js" />
     <Content Include="UI_CustomStatisticalReport\js\page\report_CementStatistics.js" />
     <Content Include="UI_CustomStatisticalReport\js\page\report_ClinkerStatistics.js" />
     <Content Include="UI_CustomStatisticalReport\js\page\report_QueryBalanceStatistics.js" />
+    <Content Include="UI_CustomStatisticalReport\ProductionDailyReport\DailyProduction.aspx" />
+    <Content Include="UI_CustomStatisticalReport\ProductionDailyReport\InventoryInformation.aspx" />
+    <Content Include="UI_CustomStatisticalReport\ProductionDailyReport\js\DailyProduction.js" />
+    <Content Include="UI_CustomStatisticalReport\ProductionDailyReport\js\InventoryInformation.js" />
+    <Content Include="UI_CustomStatisticalReport\ProductionDailyReport\js\SalesInformation.js" />
+    <Content Include="UI_CustomStatisticalReport\ProductionDailyReport\SalesInformation.aspx" />
     <Content Include="UI_CustomStatisticalReport\ProductionReport\ProductionReportService.asmx" />
+    <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportDaily_Production.aspx" />
     <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_Afterheat.aspx" />
+    <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_CementMaterial.aspx" />
     <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_Finished.aspx" />
     <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_MixtureMaterialsAndClinker.aspx" />
+    <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_OperatingRate.aspx" />
     <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_RawMaterial.aspx" />
     <Content Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_Semifinished.aspx" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\balance_zc_nxjc_byc_byf.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\balance_zc_nxjc_qtx_efc.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\balance_zc_nxjc_qtx_tys.html" />
+    <Content Include="UI_CustomStatisticalReport\DailyReportTemple\ReportDaily_Production.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_Afterheat.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_CementMaterial.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_Finished.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_MixtureMaterialsAndClinker.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_OperatingRate.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_RawMaterial.html" />
     <Content Include="UI_CustomStatisticalReport\ReportTemplate\ReportMonthly_Semifinished.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\table1.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\table2.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\table3.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\table4.html" />
+    <Content Include="UI_CustomStatisticalReport\ReportTemplate\table5.html" />
     <Content Include="UI_CustomStatisticalReport\report_BalanceStatistics.aspx" />
     <Content Include="UI_CustomStatisticalReport\report_CementStatistics.aspx" />
     <Content Include="UI_CustomStatisticalReport\report_ClinkerStatistics.aspx" />
@@ -1637,9 +1664,37 @@
     <Compile Include="UI_CustomStatisticalReport\DayConsumptionReport.aspx.designer.cs">
       <DependentUpon>DayConsumptionReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionDailyReport\DailyProduction.aspx.cs">
+      <DependentUpon>DailyProduction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionDailyReport\DailyProduction.aspx.designer.cs">
+      <DependentUpon>DailyProduction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionDailyReport\InventoryInformation.aspx.cs">
+      <DependentUpon>InventoryInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionDailyReport\InventoryInformation.aspx.designer.cs">
+      <DependentUpon>InventoryInformation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionDailyReport\SalesInformation.aspx.cs">
+      <DependentUpon>SalesInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionDailyReport\SalesInformation.aspx.designer.cs">
+      <DependentUpon>SalesInformation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI_CustomStatisticalReport\ProductionReport\ProductionReportService.asmx.cs">
       <DependentUpon>ProductionReportService.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportDaily_Production.aspx.cs">
+      <DependentUpon>ReportDaily_Production.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportDaily_Production.aspx.designer.cs">
+      <DependentUpon>ReportDaily_Production.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_Afterheat.aspx.cs">
       <DependentUpon>ReportMonthly_Afterheat.aspx</DependentUpon>
@@ -1647,6 +1702,13 @@
     </Compile>
     <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_Afterheat.aspx.designer.cs">
       <DependentUpon>ReportMonthly_Afterheat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_CementMaterial.aspx.cs">
+      <DependentUpon>ReportMonthly_CementMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_CementMaterial.aspx.designer.cs">
+      <DependentUpon>ReportMonthly_CementMaterial.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_Finished.aspx.cs">
       <DependentUpon>ReportMonthly_Finished.aspx</DependentUpon>
@@ -1661,6 +1723,13 @@
     </Compile>
     <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_MixtureMaterialsAndClinker.aspx.designer.cs">
       <DependentUpon>ReportMonthly_MixtureMaterialsAndClinker.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_OperatingRate.aspx.cs">
+      <DependentUpon>ReportMonthly_OperatingRate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_OperatingRate.aspx.designer.cs">
+      <DependentUpon>ReportMonthly_OperatingRate.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI_CustomStatisticalReport\ProductionReport\ReportMonthly_RawMaterial.aspx.cs">
       <DependentUpon>ReportMonthly_RawMaterial.aspx</DependentUpon>
@@ -1724,6 +1793,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomStatisticalReport.Infrastructure\CustomStatisticalReport.Infrastructure.csproj">
+      <Project>{5db5395c-85e1-4b0b-a211-55daee058850}</Project>
+      <Name>CustomStatisticalReport.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CustomStatisticalReport.Service\CustomStatisticalReport.Service.csproj">
       <Project>{8e200a55-e6b1-4a05-936f-5e3a42b5cddb}</Project>
       <Name>CustomStatisticalReport.Service</Name>
@@ -1748,7 +1821,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>17988</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2606/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

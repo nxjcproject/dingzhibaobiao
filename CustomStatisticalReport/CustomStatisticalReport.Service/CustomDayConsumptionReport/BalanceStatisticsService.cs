@@ -267,6 +267,7 @@ namespace CustomStatisticalReport.Service.CustomDayConsumptionReport
                         }
                         catch (Exception ex)
                         {
+
                             transaction.Rollback();
                             conn.Close();
                             return "保存数据失败！";

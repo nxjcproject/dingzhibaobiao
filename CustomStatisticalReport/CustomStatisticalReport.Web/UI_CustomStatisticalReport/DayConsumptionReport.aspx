@@ -36,7 +36,7 @@
                                 <tr>
                                     <td>组织机构：</td>
                                     <td>
-                                        <input id="TextBox_OrganizationName" class="easyui-textbox" style="width: 180px;" readonly="true" /><input id="organizationId" readonly="true" style="display: none;" /></td>
+                                        <input id="TextBox_OrganizationName" class="easyui-textbox" style="width: 180px;" readonly="readonly" /><input id="organizationId" readonly="readonly" style="display: none;" /></td>
                                     <td>时间：</td>
                                     <td>
                                         <input id="datetime" type="text" class="easyui-datebox" style="width: 120px;" required="required" /></td>
